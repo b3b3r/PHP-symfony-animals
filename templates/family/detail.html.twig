@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail{% endblock %}
+{% block myTitle %}{{family.name}}{% endblock %}
+{% block body %}
+  <h2 class="border-bottom border-primary">{{family.name|capitalize}}</h2>
+        <div>{{family.description}}</div>
+        <div class="row">
+        {% for animal in family.animals %}
+            <div class="col-12 col-md-6">
+                <div class="row align-items-center" >
+                    <div class="col-6 text-center">
+                        <img src="{{asset('images/' ~ animal.picture)}}" alt="nom animal" />
+                    </div>
+                    <div class="col-6">
+                        <h2><a href='{{path("animal-detail",{"id":animal.id})}}'>{{animal.name}}</a></h2>
+                        <div>{{animal.description}}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+{% endblock %}
