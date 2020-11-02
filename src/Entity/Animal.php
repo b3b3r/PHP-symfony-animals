@@ -32,6 +32,16 @@ class Animal
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $weight;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDangerous;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +79,30 @@ class Animal
     public function setPicture(string $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function getWeight(): ?int
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(int $weight): self
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getIsDangerous(): ?bool
+    {
+        return $this->isDangerous;
+    }
+
+    public function setIsDangerous(bool $isDangerous): self
+    {
+        $this->isDangerous = $isDangerous;
 
         return $this;
     }
