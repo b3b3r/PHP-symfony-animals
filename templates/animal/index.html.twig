@@ -4,12 +4,12 @@
 {% block myTitle %}Accueil{% endblock %}
 {% block body %}
   {% for animal in animals %}
-  <div class="row align-items-centers" >
+  <div class="row align-items-center" >
     <div class="col-2 text-center">
       <img src="{{asset('images/' ~ animal.picture)}}" alt="nom animal" />
     </div>
     <div class="col-auto">
-      <h2>{{animal.name}}</h2>
+      <h2><a href='{{path("animal-detail",{"id":animal.id})}}'>{{animal.name}}</a></h2>
       <div>{{animal.description}}</div>
     </div>
   </div>
