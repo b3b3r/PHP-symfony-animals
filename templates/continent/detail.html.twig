@@ -1,14 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Familles d'animaux{% endblock %}
-
-{% block myTitle %}Familles d'animaux{% endblock %}
+{% block title %}Détail{% endblock %}
+{% block myTitle %}{{continent.name}}{% endblock %}
 {% block body %}
-    {% for family in families %}
-        <h2 class="border-bottom border-primary"><a href="{{path('family-detail', {'id': family.id})}}">{{family.name|capitalize}}</a></h2>
-        <div>{{family.description}}</div>
+  <h2 class="border-bottom border-primary">{{continent.name|capitalize}}</h2>
         <div class="row">
-        {% for animal in family.animals %}
+        {% for animal in continent.animals %}
             <div class="col-12 col-md-6">
                 <div class="row align-items-center" >
                     <div class="col-6 text-center">
@@ -17,9 +14,12 @@
                     <div class="col-6">
                         <h2><a href='{{path("animal-detail",{"id":animal.id})}}'>{{animal.name}}</a></h2>
                         <div>{{animal.description}}</div>
+                        <h2><a class="btn btn-primary" href='{{path("family-detail",{"id":animal.family.id})}}'>{{animal.family.name|capitalize}}</a></h2>
                         <div>
-                            {% for continent in animal.continents %}
-                            <a href="{{path("continent-detail", {"id": continent.id})}}" class="btn btn-warning">{{continent.name}}</a>
+                            {% for c in animal.continents %}
+                                {% if c.id != continent.id %}
+                                    <a href="{{path("continent-detail", {"id": c.id})}}" class="btn btn-warning">{{c.name}}</a>
+                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -27,5 +27,4 @@
             </div>
         {% endfor %}
         </div>
-    {% endfor %}
 {% endblock %}

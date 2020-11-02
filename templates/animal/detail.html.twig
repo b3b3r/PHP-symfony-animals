@@ -17,6 +17,11 @@
         <span class="badge badge-success"> Non </span>
       {% endif %}
       <h2><a class="btn btn-primary" href='{{path("family-detail",{"id":animal.family.id})}}'>{{animal.family.name|capitalize}}</a></h2>
+      <div>
+          {% for continent in animal.continents %}
+          <a href="{{path("continent-detail", {"id": continent.id})}}" class="btn btn-warning">{{continent.name}}</a>
+          {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}
