@@ -18,10 +18,15 @@
       {% endif %}
       <h2><a class="btn btn-primary" href='{{path("family-detail",{"id":animal.family.id})}}'>{{animal.family.name|capitalize}}</a></h2>
       <div>
+        <h3>Présence de l'animal sur les continents :<h3/>
           {% for continent in animal.continents %}
           <a href="{{path("continent-detail", {"id": continent.id})}}" class="btn btn-warning">{{continent.name}}</a>
           {% endfor %}
       </div>
+        <h3>Liste des personnes en possédant :<h3/>
+        {% for union in animal.haveAnimals %}
+          <a href="{{path("person-detail", {"id": union.person.id})}}" class="btn btn-info">{{union.person.name}}</a>
+        {% endfor %}
     </div>
   </div>
 {% endblock %}

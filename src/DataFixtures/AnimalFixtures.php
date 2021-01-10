@@ -5,6 +5,8 @@ namespace App\DataFixtures;
 use App\Entity\Animal;
 use App\Entity\Family;
 use App\Entity\Continent;
+use App\Entity\HaveAnimal;
+use App\Entity\Person;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -12,6 +14,18 @@ class AnimalFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $p1 = new Person();
+        $p1->setName("Michel");
+        $manager->persist($p1);
+
+        $p2 = new Person();
+        $p2->setName("Lili");
+        $manager->persist($p2);
+        
+        $p3 = new Person();
+        $p3->setName("Beber");
+        $manager->persist($p3);
+
         $c1 = new Continent();
         $c1->setName("Europe");
         $manager->persist($c1);
@@ -114,6 +128,36 @@ class AnimalFixtures extends Fixture
             ->addContinent($c4)
             ->addContinent($c5);
         $manager->persist($a5);
+
+        $union1 = new HaveAnimal();
+        $union1->setPerson($p1)
+                ->setAnimal($a1)
+                ->setNumber(2);
+        $manager->persist($union1);
+
+        $union2 = new HaveAnimal();
+        $union2->setPerson($p1)
+                ->setAnimal($a5)
+                ->setNumber(4);
+        $manager->persist($union2);
+
+        $union3 = new HaveAnimal();
+        $union3->setPerson($p2)
+                ->setAnimal($a2)
+                ->setNumber(1);
+        $manager->persist($union3);
+
+        $union4 = new HaveAnimal();
+        $union4->setPerson($p3)
+                ->setAnimal($a3)
+                ->setNumber(1);
+        $manager->persist($union4);
+
+        $union5 = new HaveAnimal();
+        $union5->setPerson($p3)
+                ->setAnimal($a4)
+                ->setNumber(1);
+        $manager->persist($union5);
 
         $manager->flush();
     }

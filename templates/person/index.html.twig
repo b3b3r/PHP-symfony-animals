@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste personnes{% endblock %}
+
+{% block myTitle %}Liste personnes{% endblock %}
+{% block body %}
+    {% for person in persons %}
+        <h2 class="border-bottom border-primary"><a href="{{path('person-detail', {'id': person.id})}}">{{person.name|capitalize}}</a></h2>
+        <div>Liste des animaux possédés:</div>
+        <div class="row">
+        {% for union in person.haveAnimals %}
+            <div class="col-12 col-md-6">
+                <div class="row align-items-center" >
+                    <div class="col-6 text-center">
+                        <img src="{{asset('images/' ~ union.animal.picture)}}" alt="nom animal" />
+                    </div>
+                    <div class="col-6">
+                        <h2><a href='{{path("animal-detail",{"id":union.animal.id})}}'>{{union.animal.name}}</a></h2>
+                        <div>Nombre : {{union.number}}</div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

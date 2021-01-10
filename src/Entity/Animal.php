@@ -55,9 +55,15 @@ class Animal
      */
     private $continents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=HaveAnimal::class, mappedBy="animal")
+     */
+    private $haveAnimals;
+
     public function __construct()
     {
         $this->continents = new ArrayCollection();
+        $this->haveAnimals = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +165,36 @@ class Animal
     {
         if ($this->continents->removeElement($continent)) {
             $continent->removeAnimal($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|HaveAnimal[]
+     */
+    public function getHaveAnimals(): Collection
+    {
+        return $this->haveAnimals;
+    }
+
+    public function addHaveAnimal(HaveAnimal $haveAnimal): self
+    {
+        if (!$this->haveAnimals->contains($haveAnimal)) {
+            $this->haveAnimals[] = $haveAnimal;
+            $haveAnimal->setAnimal($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHaveAnimal(HaveAnimal $haveAnimal): self
+    {
+        if ($this->haveAnimals->removeElement($haveAnimal)) {
+            // set the owning side to null (unless already changed)
+            if ($haveAnimal->getAnimal() === $this) {
+                $haveAnimal->setAnimal(null);
+            }
         }
 
         return $this;
